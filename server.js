@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 // Route to serve the contents of keygen.js
 app.get('/keygen', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'keygen.js');
+    const filePath = path.join(__dirname, 'public', 'api/keygen.js');
 
     // Read the file and respond with its contents
     fs.readFile(filePath, 'utf8', (err, data) => {
