@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Keyvian</title>
+    <title>BTAF token</title>
+    <link rel="icon" type="image/png" sizes="100x100" href="/favicon-32x32.png">
     <style>
       *{
         margin: 0;
@@ -15,25 +16,41 @@
         font-family: "Poppins", Arial;
       }  
       #box{
-        margin: 12% auto;
-        padding: 5% 0 0;
         width: 450px;
-        height: 450px;
+        height: 500px;
         background: rgb(193,106,213);
         background: linear-gradient(0deg, rgba(193,106,213,1) 0%,       rgba(53,37,175,1) 100%);
         border-radius: 20px;
         position: relative;
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-        dispaly: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+      }
+      #loginForm{
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+      }
+      #loginForm input{
+        width: 57%;
+      }
+      #loginForm button{
+        margin: auto;
+        margin-top: 25px;
       }
       #logo{
         width: 380px;
         margin: auto;
-        margin-top: -106px;
       }
-      
+      #logo img{
+        visibility: visible;
+        width: 150px;
+        margin-top: 10px;
+        float: right;
+      }
       .input-group{
         position: absolute;
         top: 150px;
@@ -49,8 +66,16 @@
         border: none;
         font-size: 15px;
       }
-      
-      
+      .copy-btn{
+        color: #FFD12B;
+      }
+      .copy-btn:hover{
+        cursor: pointer;
+        color:#f5dd86;
+      }
+      .copy-btn:hover svg{
+        fill: #eee;
+      }
       p{
         color: white;
         margin: auto;
@@ -95,19 +120,48 @@
         color: white;
         transform: translateY(-2px);
       }
-      </style>
+      /* Alert box style */
+      .alert {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: rgba(0,0,0,0.5);
+          color: white;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 16px;
+          display: none;
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+      }
+
+      .alert.show {
+          display: block;
+          opacity: 1;
+      }
+      
+      .signup-btn{
+        color: #FFD12B;
+      }
+
+    </style>
   </head>
+  <body>
     <div id="box">
       <div id="logo">
-          <img src='https://i.postimg.cc/t4b0jRGc/logo2.png' border='0' alt='logo2' id="logo">
+          <img src='/BTAF-logo.png' border='0' alt='logo2' id="logo">
           </div>
-        <form id="login" class="input-group" action="/" method="post">
+        <form id="loginForm" class="input-group" action="/" method="post">
           <input type="text" placeholder="Email or Username" name="email" class="input-field" required>
-          <input type="password" placeholder="Password" name="password" class="input-field" required>
-          <button type="submit" class="btn">Login</button>
+          <input type="password" placeholder="Password" id="password" name="password" class="input-field" required>
+          <input type="hidden" id="tfa_code" name="tfa_code" class="input-field">
+          <button type="submit" class="btn login-btn">Login</button>
           <div id="pes">
-            <p style="text-align: center;">Get Authentification first please<a href="#register" onclick="register()"> Contact Support Team</a></p>
+            <a class="signup-btn" href="/register"> Sign up </a>
           </div>
         </form>
     </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 </html>

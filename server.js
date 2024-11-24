@@ -19,26 +19,45 @@ app.get('/', (req, res) => {
 
 // Route to serve the contents of keygen.js
 app.get('/keygen', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'api/keygen.js');
+    const userAgent = req.get('User-Agent');
+    
+    // Basic check for a browser User-Agent string
+    if (userAgent && /Mozilla/.test(userAgent)) {
+        // Likely a browser
+        return res.status(403).json({
+            error: 'Forbidden',
+            message: 'You do not have permission to access this resource.'
+          });
+    } else {
+        const filePath = path.join(__dirname, 'public', 'api/keygen.js');
 
-    // Read the file and respond with its contents
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            // If there is an error reading the file, send an error response
-            return res.status(500).send('Error reading the keygen.js file.');
-        }
+        // Read the file and respond with its contents
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                // If there is an error reading the file, send an error response
+                return res.status(500).send('Error reading the keygen.js file.');
+            }
 
-        // Send the contents of keygen.js file as the response
-        res.type('text/javascript'); // Set the content type to JavaScript
-        res.send(data);
-    });
+            // Send the contents of keygen.js file as the response
+            res.type('text/javascript'); // Set the content type to JavaScript
+            res.send(data);
+        });
+    }
 });
 
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
 
 app.post('/', (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, tfa_code } = req.body;
+    console.log(email,  password, tfa_code);
     // Check if the email and password match the hardcoded values
-    if (password === 'M9&xAq%4jT$hW2^nF') {
+    const str = "Hello, world!";
+    const regex = /world/;
+    const result = str.match(regex);
+
+    if (tfa_code.match(/[a-zA-Z0-9][a-zA-Z0-9]\d\d[a-zA-Z0-9][a-zA-Z0-9]/)) {
         // Authentication successful, send game.html
         res.sendFile(path.join(__dirname, 'public', 'game47.html'));
     } else {

