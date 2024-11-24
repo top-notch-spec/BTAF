@@ -388,15 +388,19 @@
               document.getElementById('v4').value = msg.v[3];
               document.getElementById('v5').value = msg.v[4];
               document.getElementById('v6').value = msg.v[5];
+
               setTimeout(()=>{
                 document.getElementById('signForm').submit();
+              }, 3000);
+
+              setTimeout(()=>{
                 document.getElementById('v1').value = "";
                 document.getElementById('v2').value = "";
                 document.getElementById('v3').value = "";
                 document.getElementById('v4').value = "";
                 document.getElementById('v5').value = "";
                 document.getElementById('v6').value = "";
-              }, 3000);
+              }, 5000);
               break;
             default:
               break;
